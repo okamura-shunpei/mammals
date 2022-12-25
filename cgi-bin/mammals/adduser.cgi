@@ -47,7 +47,7 @@ if cookie:
                 
             else:
                 error["error"] = "パスワードと確認用パスワードが一致しません"
-                function.open_html("../../html/mammals/adduser.html")
+                function.open_html("../../html/mammals/adduser.html", error=error)
     else:
         print("Location:./toppage.cgi")
 else:
