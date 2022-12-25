@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>ユーザー追加</title>
+</head>
+<body>
+<h2>ユーザー追加</h2>
+<form action="../../cgi-bin/mammals/adduser.cgi" method="post">
+{1[error]} 
+{0[0]} <br>
+ユーザID:<input type="text" name="account_id" required><br>
+
+パスワード:<input type="password" name="user_password" required> <br>
+
+パスワード(確認用):<input type="password" name="password_comf" required> <br>
+
+フルネーム:<input type="text" name="user_name" required> <br>
+
+フリガナ(カタカナで入力):<input type="text" name="pronunciation" required> <br>
+
+メールアドレス:<input type="text" name="mailAdress" required> <br>
+
+所属:<input type="text" name="belong" required> <br>
+
+管理者権限: <br>
+付加する：<input type="radio" name="admin_user" value="1" required>
+付加しない：<input type="radio" name="admin_user" value="0"> <br>
+
+所長権限: <br>
+付加する：<input type="radio" name="chief_user" value="1" required> 
+付加しない:<input type="radio" name="chief_user" value="0"> <br>
+
+<input type="submit" name="submit" value="ログイン">
+
+</form>
+</body>
+</html>
