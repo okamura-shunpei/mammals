@@ -10,7 +10,7 @@ msg = []
 error = {}
 
 if form.list == []:
-    function.open_html("../html/changePassword.html", error=error)
+    function.open_html("../../../html/changePassword.html", error=error)
 else:
     account_id = form.getfirst("account_id")
     now_password = form.getfirst("now_password")

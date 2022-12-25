@@ -17,7 +17,7 @@ if cookie:
     user_id = result_Users[0]["user_id"]
     
     if form.list == []:
-        function.open_html("../html/request.html")
+        function.open_html("../../html/mammals/request.html")
     else:
         titlename = form.getfirst('titlename')
         dnaflag = form.getfirst('dnaflag')
@@ -100,7 +100,6 @@ if cookie:
         request_date = now_date.strftime("%Y/%m/%d")
 
         sql_request = f"INSERT INTO request (request_id, user_id, experiment_num, titlename, dnaflag, dna_appproval_num, humanflag, human_approval_num, drugflag, drug_name, resercher_name, licence_num, purpose, outline, start_time, finish_time, reason, other_reason, category, format1, content_num1, format2, content_num2, format3, content_num3, format_drug_name, method_name, format4, content_num4, format5, content_num5, format6, content_num6, treatment1, treatment_drug_name1, treatment_method_name1, treatment2, treatment_drug_name2, treatment_method_name2, treatment3, gas_name, treatment4, treatment5, treatment6, other_treatment, remarks, zip_file, allow, request_date) values (null, {user_id}, '', '{titlename}', '{dnaflag}',  '{dna_approval_num}', '{humanflag}', '{human_approval_num}', '{drugflag}', '{drug_name}',  '{resercher_name}', '{licence_num}', '{purpose}', '{outline}',  '{start_time}', '{finish_time}', '{reason}', '{other_reason}', '{categoly}', '{format1}', '{content_num1}', '{format2}', '{content_num2}', '{format3}', '{content_num3}', '{format_drug_name}', '{method_name}', '{format4}', '{content_num4}', '{format5}', '{content_num5}', '{format6}', '{content_num6}', '{treatment1}', '{treatment_drug_name1}', '{treatment_method_name1}', '{treatment2}', '{treatment_drug_name2}', '{treatment_method_name2}', '{treatment3}', '{gas_name}', '{treatment4}', '{treatment5}', '{treatment6}', '{other_treatment}', '{remarks}', '{zip_file}', '0', '{request_date}')" 
-        #sql_request += f"values (null, {user_id}, '', '{titlename}', '{dnaflag}',  '{dna_approval_num}', '{humanflag}', '{human_approval_num}', '{drugflag}', '{drug_name}',  '{resercher_name}', '{licence_num}', '{purpose}', '{outline}',  '{start_time}', '{finish_time}', '{reason}', '{other_reason}', '{categoly}', '{format1}', '{content_num1}', '{format2}', '{content_num2}', '{format3}', '{content_num3}', '{format_drug_name}', '{method_name}', '{format4}', '{content_num4}', '{format5}', '{content_num5}', '{format6}', '{content_num6}', '{treatment1}', '{treatment_drug_name1}', '{treatment_method_name1}', '{treatment2}', '{treatment_drug_name2}', '{treatment_method_name2}', '{treatment3}', '{gas_name}', '{treatment4}', '{treatment5}', '{treatment6}', '{other_treatment}', '{remarks}', '{zip_file}', '0', '{request_date}')"                                                         
         function.connection_sql(sql_request, "w", "mammals")
 
         get_request_id = f"select request_id from request where titlename = '{titlename}' and request_date = '{request_date}'"
@@ -116,6 +115,6 @@ if cookie:
         function.connection_sql(sql_Place, "w", "mammals") 
 
         msg.append(request_id)
-        function.open_html("../html/out.html", msg=msg)
+        function.open_html("../../html/mammals/out.html", msg=msg)
 else:
     print("Locaion:./login.cgi")

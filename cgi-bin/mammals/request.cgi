@@ -12,7 +12,7 @@ check_radio_list = ["dnaflag", "humanflag", "drug_name", "reason"]
 check_box_list = ["content18", "format1", "format2", "format3", "format4", "format5", "format6", "treatment6", "other_treatment", "other_place"]
 check_dict = {}
 error = {}
-upload_dir = "../tmp"
+upload_dir = "../../tmp"
 cookie = function.get_user_name()
 form = cgi.FieldStorage()
 
@@ -23,7 +23,7 @@ if cookie:
     result_Users = function.connection_sql(sql_Users, "r", "mammals")
     user_id = result_Users[0]["user_id"]
     if form.list == []:
-        function.open_html("../html/request.html", msg=msg, error=error)
+        function.open_html("../../html/mammals/request.html", msg=msg, error=error)
     else:
         titlename = form.getfirst('titlename')
         dnaflag = form.getfirst('dnaflag')
@@ -132,12 +132,12 @@ if cookie:
         for check in check_box_list:
             if form.getfirst(check) != None and (check_box_dict[check] == None or check_box_dict[check] == ''):
                 error["error"] = f"チェックが入っている状態で必要なテキストが入力されていない箇所があります{form.getfirst(check)}"
-                function.open_html("../html/request.html", error=error)
+                function.open_html("../../html/mammals/request.html", error=error)
                 break
         for check in check_radio_list:
             if form.getfirst(check) == "1" and (check_radio_dict[check] == None or check_dict[check] == ""):
                 error["error"] = "使用すると選択しているが必要なテキストが入力されていない箇所があります"
-                function.open_html("../html/request.html", error=error)
+                function.open_html("../../html/mammals/request.html", error=error)
                 break
             
         if dnaflag=="1":
@@ -199,7 +199,7 @@ if cookie:
         #    function.open_html("../html/request.html", error=error)
         
         msg.extend([titlename, dnaflag, dna_approval_num, humanflag, human_approval_num, drugflag, drug_name, resercher_name, licence_num, purpose, outline, start_time, finish_time, reason, other_reason, categoly, format1, content_num1, format2, content_num2, format3, content_num3, format_drug_name, method_name, format4, content_num4, format5, content_num5, format6, content_num6, treatment1, treatment_drug_name1, treatment_method_name1, treatment2, treatment_drug_name2, treatment_method_name2, treatment3, gas_name, treatment4, treatment5, treatment6, other_treatment, remarks, content1, content2, content3, content4, content5, content6, content7, content8, content9, content10, content11, content12, content13, content14, content15, content16, content17, content18, other_content, zip_file, file_name, animal, strain_name, male, female, age, buy, out_distribution, in_distribution, breeding, total, place, other_place, other_place_text, quality, confirm_2, confirm_3, confirm_4, confirm_8, confirm_10, confirm_11, confirm_12, confirm_13])
-        function.open_html("../html/confirm.html",msg=msg)
+        function.open_html("../../html/mammals/confirm.html",msg=msg)
            
 else:
     print("Location:./login.cgi\n")

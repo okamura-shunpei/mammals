@@ -16,6 +16,7 @@ except KeyError:
     
 try:
     session_key = cookie["session_key"].value
+    hash_session_key = hashlib.sha256(session_key.encode()).hexdigest()
 except KeyError:
     session_key = ''
 
@@ -26,11 +27,11 @@ try:
 except: 
     db_session_key = ""
     
-if session_key == db_session_key:
+if hash_session_key == db_session_key:
     print("Location:./toppage.cgi\n")
 else:
     if form.list == []:
-        function.open_html("../html/login.html")
+        function.open_html("../../html/login.html")
     else:
         account_id = form.getfirst("account_id")
         password = form.getfirst("password")
@@ -43,29 +44,29 @@ else:
         user_password = result_Users[0]["user_password"]
         try:
             sql = f"select session_id from session where user_id = {user_id}"
-            result_seesion_id = function.connection_sql(sql, "r", "mammals")
-            sessin_id = result_session_id[0]["session_id"]
+            result_session_id = function.connection_sql(sql, "r", "mammals")
+            session_id = result_session_id[0]["session_id"]
         except:
-            session_id = "null"   
+            session_id = function.get_random_str()   
          
         hash_pass = hashlib.sha256(password.encode()).hexdigest()
         
         if password == "0000":
-            session_key = function.generate_hash_session_key()
+            session_key = function.generate_hash_session_key(session_id)
                 
-            sql = f"insert session (session_id, user_id, session_key) values ({session_id}, '{user_id}', '{session_key}') on duplicate key update session_key = '{session_key}';"
+            sql = f"insert session (session_id, user_id, session_key) values (null, '{user_id}', '{session_key}') on duplicate key update session_key = '{session_key}';"
             function.connection_sql(sql, "w", "mammals")
-            print(f"Set-Cookie: session_key={session_key}")        
+            print(f"Set-Cookie: session_key={session_id}")        
             print(f"Set-Cookie: user_id={user_id}")
             print("Location:./toppage.cgi\n")
                 
         elif hash_pass == user_password:
             session_key = function.generate_hash_session_key()                
-            sql = f"insert session (session_id, user_id, session_key) values ({session_id}, '{user_id}', '{session_key}') on duplicate key update session_key = '{session_key}';"
+            sql = f"insert session (session_id, user_id, session_key) values (null, '{user_id}', '{session_key}') on duplicate key update session_key = '{session_key}';"
             function.connection_sql(sql, "w", "mammals")            
-            print(f"Set-Cookie: session_key={session_key}")        
+            print(f"Set-Cookie: session_key={session_id}")        
             print(f"Set-Cookie: user_id={user_id}")
             print("Location:./toppage.cgi\n")
         else:
             error["error"] = "ユーザー名かパスワードに誤りがあります"
-            function.open_html("../html/login.html", error=error)
+            function.open_html("../../html/mammals/login.html", error=error)

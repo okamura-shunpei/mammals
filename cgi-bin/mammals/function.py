@@ -12,8 +12,7 @@ def get_random_str(n):
 	return ''.join([random.choice(char_data) for i in range(n)])
 
 #session_keyをsha256でハッシュ化して出力する関数
-def generate_hash_session_key():
-    session = get_random_str(100)
+def generate_hash_session_key(session):
     session_key = hashlib.sha256(session.encode()).hexdigest()
     return session_key    
 
