@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title>申請フォーム</title>
+        <script src="../js/check.js" charset="utf-8"></script>
+    </head>
+    <body>
+        <h1>実験計画</h1>
+        <h2>{1[error]}</h2>
+        <form action="../cgi/request.cgi" method="post" enctype="multipart/form-data">
+            <p>1.研究課題名</p>
+            <input type="text" name="titlename" size="50" required> <br>
+            <p>2.申請課題に関する遺伝子組換DNA実験</p>
+            <input type="radio" name="dnaflag" id="dnaid1" value="1"  onclick="connecttext('dna_id', this.checked);" required>
+            <label for="dnaid1">使用する(封じ込め施設で実験飼育する)</label>
+            <input type="radio" name="dnaflag" id="dnaid2" value="0"  onclick="connecttext_invert('dna_id', this.checked);">
+            <label for="dnaid2">使用しない</label> <br>            
+            <b>承認番号：</b>
+            <input type="text" name="dna_approval_num" id="dna_id" disabled> <br>
+            <p>3.ヒト材料使用実験</p>
+            <input type="radio" name="humanflag" id="humanid1" value="1"  onclick="connecttext('human_id', this.checked);" required>
+            <label for="humanid1">使用する</label>
+            <input type="radio" name="humanflag" id="humanid2" value="0"  onclick="connecttext_invert('human_id', this.checked);">
+            <label for="humanid2">使用しない</label>
+            <p>承認番号：</p>
+            <input type="text" name="human_approval_num" id="human_id" disabled> <br>
+            <p>4.麻薬使用実験</p>
+            <input type="radio" name="drugflag" id="drugid1" value="1" required>
+            <label for="drugid1">使用する</label>
+            <input type="radio" name="drugflag" id="drugid2" value="0" >
+            <label for="drugid2">使用しない</label> <br>
+            薬品名：
+            <input type="text" name="drug_name" > <br>
+            麻薬研究者名：
+            <input type="text" name="resercher_name"> <br>
+            免許番号：
+            <input type="text" name="lisence_num"> <br>
+            <p>5.実験目的</p>
+            <textarea name="purpose" rows="5" cols="50" required></textarea> <br>
+            <p>6.実験概要(方法、使用動物の概算、使用機器等)</p>
+            <b>参考文献を必ず挙げてください</b> <br>
+            <textarea name="outline" rows="10" cols="100" required></textarea> <br>
+            <p>7.実験予定期間</p> <br>
+            実験開始予定日：<input type="date" name="start_time" required><br>
+            実験終了予定日：<input type="date" name="finish_time" required> <br>
+            <p>8.動物実験を必要とする理由</p>
+            <b>近いと思うものを選択する</b><br>
+            <input type="radio" name="reason" id="reasonid1" value="代替手段がない" onclick="connecttext_invert('reason_text', this.checked);" required>
+            <label for="reasonid1">代替手段がない</label>
+            <input type="radio" name="reason" id="reasonid2" value="代替手段では精度が不十分" onclick="connecttext_invert('reason_text', this.checked);">
+            <label for="reasonid2">代替手段では精度が不十分</label>
+            <input type="radio" name="reason" id="reasonid3" value="代替手段の費用が莫大" onclick="connecttext_invert('reason_text', this.checked);">
+            <label for="reasonid3">代替え手段の費用が莫大</label> <br>
+            <input type="radio" name="reason" id="reasonid4" value="その他" onclick="connecttext('reason_text', this.checked);">
+            <label for="reasonid4">その他</label>
+            <input type="text" name="other_reason" id="reason_text" disabled> <br>
+            <p>9.実験カテゴリー</p>
+            <b>近いと思うものを選択してください</b>
+            <select name="categoly" multiple required>
+                <option value="生物個体を用いない実験あるいは植物、細菌、原虫、または無脊椎動物を用いた実験">SCAWのカテゴリーA：生物個体を用いない実験あるいは植物、細菌、原虫、または無脊椎動物を用いた実験</option>
+                <option value="脊椎動物を用いた実験で、動物に対してほとんど、あるいは全く不快感を与えないと思われる実験操作">SCAMのカテゴリーB：脊椎動物を用いた実験で、動物に対してほとんど、あるいは全く不快感を与えないと思われる実験操作</option>
+                <option value="脊椎動物を用いた実験で、動物に対して軽微なストレスあるいは痛み(短時間持続する痛み)を伴う実験">SCAMのカテゴリーC：脊椎動物を用いた実験で、動物に対して軽微なストレスあるいは痛み(短時間持続する痛み)を伴う実験</option>
+                <option value="脊椎動物を用いた実験で、避けることのできない重度のストレスや痛みを伴う実験">SCAMのカテゴリーD：脊椎動物を用いた実験で、避けることのできない重度のストレスや痛みを伴う実験</option>
+                <option value="麻酔してない意識のある動物を用いて、動物が耐えることのできる最大の痛み、あるいはそれ以上の痛みを与えるような処置">SCAMのカテゴリーE：麻酔してない意識のある動物を用いて、動物が耐えることのできる最大の痛み、あるいはそれ以上の痛みを与えるような処置</option>
+            </select>         <br>    
+            <p>10.実験内容</p>
+            <p>関連する事項をチェック及び入力してください</p>
+            <input type="checkbox" class="check_content" name="content1" id="contentid1" value="臓器などの材料採取">
+            <label for="contentid1">1:臓器などの材料採取</label>
+            <input type="checkbox" class="check_content" name="content2" id="contentid2" value="移植・継代">
+            <label for="contentid2">2:移植・継代</label>
+            <input type="checkbox" class="check_content" name="content3" id="contentid3" value="発がん">
+            <label for="contentid3">3:発がん</label>
+            <input type="checkbox" class="check_content" name="content4" id="contentid4" value="受精">
+            <label for="contentid4">4:受精</label>
+            <input type="checkbox" class="check_content" name="content5" id="contentid5" value="胎児発生">
+            <label for="contentid5">5:胎児発生</label>
+            <input type="checkbox" class="check_content" name="content6" id="contentid6" value="卵発生">
+            <label for="contentid6">6:卵発生</label>
+            <input type="checkbox" class="check_content" name="content7" id="contentid7" value="胎児実験">
+            <label for="contentid7">7:胎児実験</label>
+            <input type="checkbox" class="check_content" name="content8" id="contentid8" value="感染">
+            <label for="contentid8">8:感染</label>
+            <input type="checkbox" class="check_content" name="content9" id="contentid9" value="薬理実験">
+            <label for="contentid9">9:薬理実験</label>
+            <input type="checkbox" class="check_content" name="content10" id="contentid10" value="毒性実験">
+            <label for="contentid10">10:毒性実験</label>
+            <input type="checkbox" class="check_content" name="content11" id="contentid11" value="遺伝子操作・発生工学">
+            <label for="contentid11">11:遺伝子操作・発生工学</label>
+            <input type="checkbox" class="check_content" name="content12" id="contentid12" value="遺伝・繁殖の実験">
+            <label for="contentid12">12:遺伝・繁殖の実験</label>
+            <input type="checkbox" class="check_content" name="content13" id="contentid13" value="手技開発">
+            <label for="contentid13">13:手技開発</label>
+            <input type="checkbox" class="check_content" name="content14" id="contentid14" value="免疫・抗体作成">
+            <label for="contentid14">14:免疫・抗体作成</label>
+            <input type="checkbox" class="check_content" name="content15" id="contentid15" value="放射線照射・投与実験">
+            <label for="contentid15">15:放射線照射・投与実験</label>
+            <input type="checkbox" class="check_content" name="content16" id="contentid16" value="外科的処置">
+            <label for="contentid16">16:外科的処置</label>
+            <input type="checkbox" class="check_content" name="content17" id="contentid17" value="測定・観察">
+            <label for="contentid17">17:測定・観察</label>
+            <input type="checkbox" class="check_content" name="content18" id="contentid18" value="その他" onclick="connecttext('content_text', this.checked);">
+            <label for="contentid18">18:その他</label>
+            <input type="text" name="other_content" id="content_text" disabled> <br>
+            <p>11.動物への処置・苦痛軽減・排除法</p>
+            <p>どの苦痛軽減にあたるかチェック及び入力し、カッコ内に10の実験愛用の番号を入力してください</p>
+            <input type="checkbox" class="check_format" name="format1" id="formatid1" value="苦痛と関係ない" onclick="connecttext('format_text1', this.checked);">
+            <label for="formatid1">苦痛と関係ない</label>
+            (<input type="text" name="content_num1" id="format_text1" disabled>) <br>
+            <input type="checkbox" class="check_format" name="format2" id="formatid2" value="許容される苦痛の範囲内である" onclick="connecttext('format_text2', this.checked);">
+            <label for="formatid2">許容される苦痛の範囲内である</label>
+            (<input type="text" name="content_num2" id="format_text2" disabled>) <br>
+            <input type="checkbox" class="check_format" name="format3" id="formatid3" value="苦痛の排除のため、麻酔薬・鎮痛薬を使用する実験である" onclick="connecttext('format_text3', this.checked);">
+            <label for="formatid3">苦痛の排除のため、麻酔薬・鎮痛薬を使用する実験である</label>
+            (<input type="text" name="content_num3" id="format_text3" disabled>) <br>
+            薬品名：<input type="text" name="format_drug_name"> <br>
+            投与方法：<input type="text" name="method_name"> <br>
+            <input type="checkbox" class="check_format" name="format4" id="formatid4" value="人道的エンドポイントを設定する実験である" onclick="connecttext('format_text4', this.checked);">
+            <label for="formatid4">人道的エンドポイントを設定する実験である</label>
+            (<input type="text" name="content_num4" id="format_text4" disabled>) <br>
+            <input type="checkbox" class="check_format" name="format5" id="formatid5" value="供される苦痛の範囲を超えるが、実験の都合上苦痛の軽減・排除法がない" onclick="connecttext('format_text5', this.checked);">
+            <label for="formatid5">供される苦痛の範囲を超えるが、実験の都合上苦痛の軽減・排除法がない</label>
+            (<input type="text" name="content_num5" id="format_text5" disabled>) <br>
+            <input type="checkbox" class="check_format" name="format6" id="formatid6" value="その他" onclick="connecttext('format_text6', this.checked);">
+            <label for="formatid6">その他</label>
+            (<input type="text" name="content_num6"  id="format_text6" disabled>) <br>
+            <p>12.実験終了後の(安楽死)の処置</p>
+            <input type="checkbox" class="check_treatment" name="treatment1" id="treatmentid1" value="過麻酔" >
+            <label for="treatmentid1">過麻酔</label> <br>
+            薬品名：<input type="text" name="treatment_drug_name1"> <br>
+            投与方法：<input type="text" name="treatment_method_name1"> <br>
+            <input type="checkbox" class="check_treatment" name="treatment2" id="treatmentid2" value="過麻酔+放血" >
+            <label for="treatmentid2">過麻酔+放血</label> <br>
+            薬品名：<input type="text" name="treatment_drug_name2"> <br>
+            投与方法：<input type="text" name="treatment_method_name2"> <br>
+            <input type="checkbox" class="check_treatment" name="treatment3" id="treatmentid3" value="ガス吸入" onClick="connecttext('gas_name', this.checked);">
+            <label for="treatmentid3">ガス吸入</label> <br>
+            吸入法・ガス名：<input type="text" name="gas_name" id="gas_name" disabled> <br>
+            <input type="checkbox" class="check_treatment" name="treatment4" id="treatmentid4" value="頸椎脱臼" >
+            <label for="treatmentid4">頸椎脱臼</label> <br>
+            <input type="checkbox" class="check_treatment" name="treatment5" id="treatmentid5" value="断首" >
+            <label for="treatmentid5">断首</label> <br>
+            <input type="checkbox" class="check_treatment" name="treatment6" id="treatmentid6" value="その他" onclick="connecttext('treatment_text', this.checked);">
+            <label for="treatmentid6">その他</label> 
+            <input type="text" name="other_treament" id="treatment_text" disabled> <br>
+            <p>13.使用動物種・動物総数・導入時の微生物学的品質・動物飼育及び動物実験実施場所</p>
+            動物種 <br>
+            <select name="animal" multiple required>
+                <option value="マウス">マウス</option>
+                <option value="ラット">ラット</option>
+                <option value="ハムスター">ハムスター</option>
+                <option value="スンクス">スンクス</option>
+                <option value="ニワトリ">ニワトリ</option>
+                <option value="ウサギ">ウサギ</option>
+                <option value="イヌ">イヌ</option>
+                <option value="ヒツジ">ヒツジ</option>
+                <option value="ヤギ">ヤギ</option>
+                <option value="ブタ">ブタ</option>
+                <option value="その他">その他</option>
+            </select> <br>
+            系統名 <br>
+            <input type="text" name="strain_name" value=""> <br>
+            性別 <br>
+            <input type="checkbox" class="check_gender" name="male" id="gender_id1" value="オス">
+            <label for="gender_id1">オス</label>
+            <input type="checkbox" class="check_gender" name="female" id="gender_id2" value="メス">
+            <label for="gender_id2">メス</label> <br>
+            週齢 <br>
+            <input type="text" name="age" value=""> <br>
+            動物実験使用数 <br>
+            購入<input type="text" name="buy" value="0"> 外部分与<input type="text" name="out_distribution" value="0"> <br>
+            内部分与<input type="text" name="in_distribution" value="0"> 自家繁殖<input type="text" name="breeding" value="0"> <br>
+            自家繁殖総引数 <br>
+            <input type="text" name="total" value="0"> <br>
+            微生物学的品質 <br>
+            <select name="quality" multiple required>
+                <option value="SPF（当施設のSPF基準を満たす）">SPF（当施設のSPF基準を満たす）</option>
+            </select>
+            <p>実験実施場所</p> <br>
+            <input type="checkbox" class="check_place" name="place" id="place_id"  value="動物実験施設"> 
+            <label for="place_id">動物実験施設</label>
+            <input type="checkbox" class="check_place" name="other_place"  id="other_place" value="その他施設" onclick="connecttext('place_text_id', this.checked);"> 
+            <label for="other_place">その他施設</label>
+            <input type="text" name="other_place_text" id="place_text_id" disabled> <br>
+            <p>14.備考</p>
+            <textarea name="remarks" rows="15" cols="50"></textarea> <br>
+            <p>15.添付書類</p>
+            zip形式のみ
+            <input type="file" name="zip_file" accept=".zip">
+        
+        <p><input type="submit" value="送信" onclick="return isCheck()">
+        <input type="reset" value="リセット" ></p>
+        </form>
+    </body>
+</html>
