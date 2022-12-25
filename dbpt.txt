@@ -47,7 +47,7 @@ create table request(
     remarks text,
     zip_file varchar(50),
     allow boolean not null default '0' comment '承認済みか否か',
-    request_date varchar(50) not null,
+    request_date varchar(50) not null comment '申請日',
     index(request_id),
     primary key (request_id),
     foreign key (user_id)
