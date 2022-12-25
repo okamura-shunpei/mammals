@@ -11,11 +11,6 @@ def get_random_str(n):
 	char_data = string.digits + string.ascii_lowercase + string.ascii_uppercase
 	return ''.join([random.choice(char_data) for i in range(n)])
 
-#session_keyをsha256でハッシュ化して出力する関数
-def generate_hash_session_key(session):
-    session_key = hashlib.sha256(session.encode()).hexdigest()
-    return session_key    
-
 #sqlの接続を行う関数　第一引数でsqlの命令、第二引数で読み込みか書き込みのどちらか、第三引数でデータベース名を受け取る
 def connection_sql(sql, mode, db):
     connection = pymysql.connect(
